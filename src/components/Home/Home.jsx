@@ -1,48 +1,50 @@
-/* eslint-disable no-console */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
-/* eslint-disable no-unused-vars */
+import { useContext, useState } from 'react';
 import './index.css';
+import { MonthYearContext } from '../../context';
+import { Calendar } from '../Calendar';
+import { globalState } from '../../context/globalContext';
+import { Month } from '../Month';
+import { Year } from '../Year';
 
 export function Home() {
-  const lastDayMonth = (year, month) => {
-    const lastDay = new Date(year, month, 0).getDate();
-    return lastDay;
+  const [contextState, setContextState] = useState(globalState);
+
+  // eslint-disable-next-line react/no-unstable-nested-components
+  const GravaEventos = () => {
+    const context = useContext(MonthYearContext);
+    const {
+      contextState: { currentDay },
+    } = context;
+    const eventsData = {
+      day: currentDay,
+      hour: '8:00',
+      descripiton: 'Medico dentista',
+    };
+
+    let id = 0;
+    const handleSaveEvent = () => {
+      localStorage.setItem(id, JSON.stringify(eventsData));
+      // eslint-disable-next-line operator-assignment
+      id = id + 1;
+    };
+    return (
+      <div>
+        <input type="text" />
+        <button type="submit">Novo</button>
+        <button type="submit" onClick={handleSaveEvent}>
+          salvar
+        </button>
+      </div>
+    );
   };
 
-  const firstDayWeekIndex = (year, month) => {
-    const day = new Date(year, month - 1, 1);
-    const dayIndex = day.getDay();
-    return dayIndex;
-  };
-
-  const renderIten = () => {
-    let daysEmpty = 0;
-    const elements = [];
-    const firstDayIndex = firstDayWeekIndex(2023, 12);
-    const lastDay = lastDayMonth(2023, 12);
-    const fullCalendarLoop = lastDay + firstDayIndex;
-    for (let i = 1; i <= fullCalendarLoop; i += 1) {
-      if (daysEmpty < firstDayIndex) {
-        elements.push(<div key={i} />);
-        daysEmpty += 1;
-      } else elements.push(<div key={i}>{i - firstDayIndex}</div>);
-    }
-    return elements;
-  };
-
-  const renderTwo = () => {
-    const teste = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
-    const elementes = [];
-
-    for (const e of teste) {
-      <div key={e}>{e}</div>;
-    }
-  };
   return (
-    <div className="teste">
-      { renderTwo() }
-      { renderIten() }
-    </div>
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
+    <MonthYearContext.Provider value={{ contextState, setContextState }}>
+      <Month />
+      <Year />
+      <Calendar />
+      <GravaEventos />
+    </MonthYearContext.Provider>
   );
 }
