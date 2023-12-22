@@ -6,7 +6,7 @@ import { MonthYearContext } from '../../context';
 export const Calendar = () => {
   const context = useContext(MonthYearContext);
   const {
-    contextState: { currentMonth, currentYear, currentDay },
+    contextState: { currentMonth, currentYear },
     setContextState,
   } = context;
   const [clickedElement, setClickedElement] = useState();
@@ -27,10 +27,6 @@ export const Calendar = () => {
     setContextState((state) => ({ ...state, currentDay: selectedDay }));
   };
 
-  // eslint-disable-next-line react/no-unstable-nested-components
-  const Day = () => {
-    return <p>{currentDay}</p>;
-  };
   const renderMonthDays = () => {
     let daysEmpty = 0;
     const elements = [];
@@ -76,7 +72,6 @@ export const Calendar = () => {
     <div className="calendar">
       {rendeWeekDayName()}
       {renderMonthDays()}
-      <Day />
     </div>
   );
 };
