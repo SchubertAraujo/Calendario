@@ -1,0 +1,29 @@
+.previous-style {
+  border-width: 1px 0px 1px 1px;
+  border-style: solid;
+}
+
+.description-style {
+  border-width: 1px 0px;
+  border-style: solid;
+  width: 100%;
+}
+
+.next-style {
+  border-width: 1px 1px 1px 0px;
+  border-style: solid;
+}
+
+button:hover {
+  background-color: bisque;
+}
+
+.button-style {
+  display: flex;
+  width: 100%;
+}
+
+.previous-next-style {
+  display: flex;
+  gap: 15px;
+}

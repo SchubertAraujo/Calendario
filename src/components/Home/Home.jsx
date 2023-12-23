@@ -3,10 +3,9 @@ import { useState } from 'react';
 import './index.css';
 import { MonthYearContext } from '../../context';
 import { globalState } from '../../context/globalContext';
-import { Month } from '../Month';
-import { Year } from '../Year';
 import { EventsControl } from '../EventsControl';
 import { Calendar } from '../Calendar/Calendar';
+import { MonthAndYear } from '../MonthAndYear';
 
 export function Home() {
   const [contextState, setContextState] = useState(globalState);
@@ -14,11 +13,11 @@ export function Home() {
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <MonthYearContext.Provider value={{ contextState, setContextState }}>
-      <Month />
-      <Year />
-      <Calendar />
-      <EventsControl />
-      {/* <Day /> */}
+      <div className="container">
+        <MonthAndYear />
+        <Calendar />
+        <EventsControl />
+      </div>
     </MonthYearContext.Provider>
   );
 }

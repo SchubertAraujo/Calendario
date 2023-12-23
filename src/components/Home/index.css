@@ -1,7 +1,13 @@
-.class {
-
+.month-year {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
-.events-header {
-  display: flex;
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: bisque;
 }

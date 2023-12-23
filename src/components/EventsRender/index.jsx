@@ -1,15 +1,12 @@
 /* eslint-disable no-console */
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { MonthYearContext } from '../../context';
 
 export const EventsRender = () => {
   const context = useContext(MonthYearContext);
-  // const [eventsObj, setEventsObj] = useState();
   const {
-    // eslint-disable-next-line no-unused-vars
     contextState: { currentYear, currentMonth, currentDay },
   } = context;
-  const [teste, setTeste] = useState();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getEventsData = () => {
@@ -29,13 +26,11 @@ export const EventsRender = () => {
     }
     return eventsArray;
   };
-
-  useEffect(() => {
-    setTeste(getEventsData());
-  }, [getEventsData]);
+  const [teste, setTeste] = useState(getEventsData);
 
   const removeEvent = (objId) => {
     localStorage.removeItem(objId);
+    setTeste(getEventsData);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
