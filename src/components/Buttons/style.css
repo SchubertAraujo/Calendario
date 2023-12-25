@@ -1,0 +1,31 @@
+.previous-style,
+.next-style {
+  margin-bottom: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(235, 235, 235);
+  outline: 0;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px
+}
+
+.description-style {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+button:hover {
+  background-color: #068bf0;
+}
+
+.button-style {
+  display: flex;
+  width: 100%;
+}
+

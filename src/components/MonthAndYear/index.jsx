@@ -3,6 +3,7 @@ import { useContext, useEffect, useReducer } from 'react';
 import { globalState } from '../../context/globalContext';
 import { MonthYearContext } from '../../context';
 import { reducer } from './reducer';
+import { Button } from '../Buttons';
 
 export const MonthAndYear = () => {
   const [state, dispatch] = useReducer(reducer, globalState);
@@ -28,46 +29,34 @@ export const MonthAndYear = () => {
     'Dezembro',
   ];
 
+  const handlePreviousMonth = () => {
+    dispatch({ type: 'previousMonth' });
+  };
+
+  const handleNextMonth = () => {
+    dispatch({ type: 'nextMonth' });
+  };
+
+  const handlePreviousYear = () => {
+    dispatch({ type: 'previousYear' });
+  };
+
+  const handleNextYear = () => {
+    dispatch({ type: 'nextYear' });
+  };
+
   return (
-    <div className="previous-next-style">
-      <div className="button-style">
-        <button
-          className="previous-style"
-          type="submit"
-          onClick={() => dispatch({ type: 'previousMonth' })}
-        >
-          {'<'}
-        </button>
-        <button className="description-style" type="submit">
-          {monthName[state.currentMonth]}
-        </button>
-        <button
-          className="next-style"
-          type="submit"
-          onClick={() => dispatch({ type: 'nextMonth' })}
-        >
-          {'>'}
-        </button>
-      </div>
-      <div className="button-style">
-        <button
-          className="previous-style"
-          type="submit"
-          onClick={() => dispatch({ type: 'previousYear' })}
-        >
-          {'<'}
-        </button>
-        <button className="description-style" type="submit">
-          {state.currentYear}
-        </button>
-        <button
-          className="next-style"
-          type="submit"
-          onClick={() => dispatch({ type: 'nextYear' })}
-        >
-          {'>'}
-        </button>
-      </div>
-    </div>
+    <>
+      <Button
+        previous={handlePreviousYear}
+        descripiton={state.currentYear}
+        next={handleNextYear}
+      />
+      <Button
+        previous={handlePreviousMonth}
+        descripiton={monthName[state.currentMonth]}
+        next={handleNextMonth}
+      />
+    </>
   );
 };
