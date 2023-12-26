@@ -1,73 +1,83 @@
-import { useContext, useRef, useState } from 'react';
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { MonthYearContext } from '../../context';
 import { EventsRender } from '../EventsRender';
 
-export const EventsControl = () => {
+export const Inputs = () => {
   const [inputHourValue, setHourInputValue] = useState('');
   const [inputDescValue, setInputDescValue] = useState('');
   const inputHourRef = useRef(null);
   const inputDescRef = useRef(null);
 
   const context = useContext(MonthYearContext);
-  const {
-    contextState: {
-      currentMonth,
-      currentDay,
-      currentYear,
-      hourValue,
-      descriptionValue,
-    },
-    setContextState,
-  } = context;
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const eventsData = {
-    month: currentMonth,
-    year: currentYear,
-    day: currentDay,
-    hour: hourValue,
-    descripiton: descriptionValue,
-  };
+  const { contextState, setContextState } = context;
 
   const id = localStorage.getItem('id');
   if (id === null) {
     localStorage.setItem('id', 0);
   }
+
   const getNextId = () => {
     const nextId = localStorage.getItem('id');
     return parseInt(nextId, 10) + 1;
   };
 
-  const handleHourBlur = () => {
-    setContextState((state) => ({ ...state, hourValue: inputHourValue }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const salva = () => {
+    const nextId = getNextId();
+    localStorage.setItem(id, JSON.stringify(contextState));
+    localStorage.setItem('id', nextId);
   };
+
+  useEffect(() => {
+    salva();
+  }, [context, salva]);
+
+  // const handleHourBlur = () => {
+  //   // setContextState((state) => ({
+  //   //   ...state,
+  //   //   hourValue: 'hahahah',
+  //   // }));
+  //   // console.log(hourValue);
+  //   // console.log(currentMonth);
+  //   // console.log(context.contextState);
+  // };
+
   const handleHourChange = (event) => {
     setHourInputValue(event.target.value);
   };
 
   const handleDescriptionBlur = () => {
-    setContextState((state) => ({
-      ...state,
-      descriptionValue: inputDescValue,
-    }));
+    // setContextState(() => ({
+    //   descriptionValue: inputDescValue,
+    // }));
   };
   const handleDescriptionChange = (event) => {
     setInputDescValue(event.target.value);
   };
 
   const handleSaveEvent = () => {
-    if (inputHourRef.current) inputHourRef.current.blur();
+    // if (inputHourRef.current) inputHourRef.current.blur();
     if (inputDescRef.current) inputDescRef.current.blur();
 
-    setContextState((state) => ({ ...state, hourValue: inputHourValue }));
-    setContextState((state) => ({
-      ...state,
-      descriptionValue: inputDescValue,
+    setContextState(() => ({
+      ...context.contextState,
+      hourValue: inputHourValue,
     }));
-
-    const nextId = getNextId();
-    localStorage.setItem(id, JSON.stringify(eventsData));
-    localStorage.setItem('id', nextId);
+    // setContextState(() => ({
+    //   hourValue: 'adasd',
+    // }));
+    // setContextState((state) => ({
+    //   ...state,
+    //   currentMonth: 2,
+    // }));
+    // console.log(hourValue);
+    // console.log(currentMonth);
+    // setContextState((state) => ({
+    //   ...state,
+    //   decriptionValue: inputDescValue,
+    // }));
   };
 
   return (
@@ -77,7 +87,7 @@ export const EventsControl = () => {
         value={inputHourValue}
         onChange={handleHourChange}
         ref={inputHourRef}
-        onBlur={handleHourBlur}
+        // onBlur={handleHourBlur}
       />
       <input
         type="text"

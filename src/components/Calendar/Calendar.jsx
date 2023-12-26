@@ -1,5 +1,5 @@
-/* eslint-disable no-console */
-import { useContext, useState } from 'react';
+/* eslint-disable no-nested-ternary */
+import { useContext, useEffect, useState } from 'react';
 import './style.css';
 import { MonthYearContext } from '../../context';
 
@@ -9,18 +9,20 @@ export const Calendar = () => {
     contextState: { currentMonth, currentYear },
     setContextState,
   } = context;
-  const [clickedElement, setClickedElement] = useState();
+  const [clickedElement, setClickedElement] = useState('');
+  const day = new Date().getDate();
+  const month = new Date().getMonth();
+  const year = new Date().getFullYear();
+  const isCurrentMounth = month === currentMonth;
+  const isCurrentYear = year === currentYear;
 
-  const lastDayMonth = () => {
-    const lastDay = new Date(currentYear, currentMonth, 0).getDate();
-    return lastDay;
-  };
+  const firstDay = new Date(currentYear, currentMonth, 1);
+  const firstDayIndex = firstDay.getDay();
+  const lastDayMonth = new Date(currentYear, currentMonth, 0).getDate();
 
-  const firstDayWeekIndex = () => {
-    const day = new Date(currentYear, currentMonth, 1);
-    const dayIndex = day.getDay();
-    return dayIndex;
-  };
+  useEffect(() => {
+    setClickedElement('');
+  }, [currentMonth, currentMonth]);
 
   const handleSelectDay = (index, selectedDay) => {
     setClickedElement(index);
@@ -30,10 +32,10 @@ export const Calendar = () => {
   const renderMonthDays = () => {
     let daysEmpty = 0;
     const elements = [];
-    const firstDayIndex = firstDayWeekIndex();
-    const lastDay = lastDayMonth();
-    const fullCalendarLoop = lastDay + firstDayIndex;
+    const fullCalendarLoop = lastDayMonth + firstDayIndex;
     for (let i = 1; i <= fullCalendarLoop; i += 1) {
+      const isToday =
+        i - firstDayIndex === day && isCurrentMounth && isCurrentYear;
       if (daysEmpty < firstDayIndex) {
         elements.push(<div key={i} />);
         daysEmpty += 1;
@@ -41,11 +43,23 @@ export const Calendar = () => {
         elements.push(
           // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
           <div
-            className="day-box-style"
             key={i}
-            onClick={() => handleSelectDay(i, i - firstDayIndex)}
+            onClick={() => handleSelectDay(i, i - firstDayIndex, isToday)}
+            className={`day-box-style ${isToday ? 'colored' : ''}
+            }`}
             style={{
-              backgroundColor: clickedElement === i ? 'yellow' : 'white',
+              backgroundColor:
+                clickedElement === i && isToday
+                  ? 'var(--blue-color)'
+                  : clickedElement === i && !isToday
+                    ? 'white'
+                    : '',
+              border:
+                clickedElement === i && isToday
+                  ? '2px solid var(--gray-color)'
+                  : clickedElement === i && !isToday
+                    ? '2px solid var(--blue-color)'
+                    : '',
             }}
           >
             {i - firstDayIndex}
@@ -61,7 +75,7 @@ export const Calendar = () => {
 
     for (const days in daysWeek) {
       elements.push(
-        <div className="teste" key={days}>
+        <div className="day-box-style" key={days}>
           {daysWeek[days]}
         </div>,
       );

@@ -1,4 +1,3 @@
-import './style.css';
 import { useContext, useEffect, useReducer } from 'react';
 import { globalState } from '../../context/globalContext';
 import { MonthYearContext } from '../../context';

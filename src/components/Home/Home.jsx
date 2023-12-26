@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './index.css';
 import { MonthYearContext } from '../../context';
 import { globalState } from '../../context/globalContext';
-import { EventsControl } from '../EventsControl';
+import { Inputs } from '../Inputs/index2';
 import { Calendar } from '../Calendar/Calendar';
 import { MonthAndYear } from '../MonthAndYear';
 
@@ -16,7 +16,7 @@ export function Home() {
       <div className="container">
         <MonthAndYear />
         <Calendar />
-        <EventsControl />
+        <Inputs />
       </div>
     </MonthYearContext.Provider>
   );

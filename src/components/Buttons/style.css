@@ -21,11 +21,10 @@
 
 
 button:hover {
-  background-color: #068bf0;
+  background-color: var(--blue-color);
 }
 
 .button-style {
   display: flex;
   width: 100%;
 }
-
