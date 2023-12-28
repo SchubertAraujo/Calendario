@@ -1,6 +1,6 @@
-/* eslint-disable no-console */
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { MonthYearContext } from '../../context';
+import './style.css';
 
 export const EventsRender = () => {
   const context = useContext(MonthYearContext);
@@ -8,51 +8,57 @@ export const EventsRender = () => {
     contextState: { currentYear, currentMonth, currentDay },
   } = context;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getEventsData = () => {
+  const [id, setId] = useState();
+  useEffect(() => {
+    localStorage.removeItem(id);
+    setId('');
+  }, [id]);
+
+  const getEventsData = useCallback(() => {
     const eventsArray = [];
     const currentId = localStorage.getItem('id');
     for (let i = 0; i <= currentId; i += 1) {
       const eventsOjb = JSON.parse(localStorage.getItem(i));
       // eslint-disable-next-line no-continue
       if (eventsOjb === null) continue;
-      const sameYear = currentYear === eventsOjb.year;
-      const sameMonth = currentMonth === eventsOjb.month;
-      const sameDay = currentDay === eventsOjb.day;
-      if (sameYear && sameMonth && sameDay) {
-        eventsOjb.id = i;
-        eventsArray.push(eventsOjb);
-      }
+      eventsOjb.id = i;
+      eventsArray.push(eventsOjb);
     }
     return eventsArray;
-  };
-  const [teste, setTeste] = useState(getEventsData);
-
-  const removeEvent = (objId) => {
-    localStorage.removeItem(objId);
-    setTeste(getEventsData);
-  };
+  }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
+  const removeEvent = (objId) => {
+    setId(objId);
+  };
+
   const showEvents = () => {
-    const eventsObj = teste;
+    const eventsObj = getEventsData();
     const elements = [];
     for (const e in eventsObj) {
-      elements.push(
-        <div key={e}>
-          <p>{eventsObj[e].hour} </p>
-          <button
-            id={eventsObj[e].id}
-            type="submit"
-            onClick={() => removeEvent(eventsObj[e].id)}
-          >
-            XXX
-          </button>
-        </div>,
-      );
+      const sameYear = currentYear === eventsObj[e].currentYear;
+      const sameMonth = currentMonth === eventsObj[e].currentMonth;
+      const sameDay = currentDay === eventsObj[e].currentDay;
+      if (sameYear && sameMonth && sameDay) {
+        elements.push(
+          <div className="events" key={e}>
+            <p>{eventsObj[e].hourValue} </p>
+            <p>{eventsObj[e].decriptionValue} </p>
+            <button
+              id={eventsObj[e].id}
+              className="delete-style"
+              type="submit"
+              // onClick={() => removeEvent(eventsObj[e].id)}
+              onClick={() => removeEvent(eventsObj[e].id)}
+            >
+              X
+            </button>
+          </div>,
+        );
+      }
     }
     return elements;
   };
 
-  return <>{showEvents()};</>;
+  return <>{showEvents()}</>;
 };

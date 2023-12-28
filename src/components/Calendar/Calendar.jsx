@@ -9,6 +9,8 @@ export const Calendar = () => {
     contextState: { currentMonth, currentYear },
     setContextState,
   } = context;
+  // eslint-disable-next-line no-console
+
   const [clickedElement, setClickedElement] = useState('');
   const day = new Date().getDate();
   const month = new Date().getMonth();
@@ -22,13 +24,15 @@ export const Calendar = () => {
 
   useEffect(() => {
     setClickedElement('');
-  }, [currentMonth, currentMonth]);
+  }, [currentYear, currentMonth]);
 
-  const handleSelectDay = (index, selectedDay) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleSelectDay = (index, selectDay) => {
     setClickedElement(index);
-    setContextState((state) => ({ ...state, currentDay: selectedDay }));
+    setContextState((state) => ({ ...state, currentDay: selectDay }));
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const renderMonthDays = () => {
     let daysEmpty = 0;
     const elements = [];
@@ -82,6 +86,11 @@ export const Calendar = () => {
     }
     return elements;
   };
+
+  useEffect(() => {
+    renderMonthDays();
+  });
+
   return (
     <div className="calendar">
       {rendeWeekDayName()}

@@ -1,5 +1,6 @@
 export const reducer = (state, action) => {
   if (action.type === 'previousMonth') {
+    // eslint-disable-next-line no-console
     if (state.currentMonth === 0) {
       return {
         ...state,

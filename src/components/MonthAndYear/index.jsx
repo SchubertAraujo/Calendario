@@ -11,7 +11,7 @@ export const MonthAndYear = () => {
 
   useEffect(() => {
     setContextState(state);
-  });
+  }, [setContextState, state]);
 
   const monthName = [
     'Janeiro',

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './index.css';
 import { MonthYearContext } from '../../context';
 import { globalState } from '../../context/globalContext';
-import { Inputs } from '../Inputs/index2';
+import { Inputs } from '../Inputs';
 import { Calendar } from '../Calendar/Calendar';
 import { MonthAndYear } from '../MonthAndYear';
 

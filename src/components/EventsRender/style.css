@@ -1,0 +1,24 @@
+.events {
+  display: flex;
+  margin: 15px 5px;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+.events p {
+  font-size: 12px;
+}
+
+.delete-style {
+  border: none;
+  border-radius: 5px;
+  height: 20px;
+  width: 20px;
+  background-color: var(--red-color);
+  color: white;
+  margin: 0px 10px;
+}
+
+.delete-style:hover {
+  background-color: var(--light-red-color);
+}

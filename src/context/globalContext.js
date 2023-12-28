@@ -3,6 +3,7 @@ export const globalState = {
   currentMonth: currentDate.getMonth(),
   currentYear: currentDate.getFullYear(),
   currentDay: currentDate.getDate(),
-  hourValue: null,
+  selectedDay: '',
+  hourValue: '',
   decriptionValue: '',
 };
