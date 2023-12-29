@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+<h1 align='center'> Calendário </h1>
+<p align="justify"> Um calendário feito 100% por mim para demostrar conhecimentos em:</p>
+<p><img src="https://img.shields.io/static/v1?label=%20&message=JavaScript&color=yellow&labelColor=575757&style=flat&logo=javascript" /> <img src="https://img.shields.io/static/v1?label=%20&message=React&color=61dcf7&labelColor=575757&style=flat&logo=react" /> <img src="https://img.shields.io/static/v1?label=%20&message=Html&color=orange&labelColor=575757&style=flat&logo=html5"/> <img src="https://img.shields.io/static/v1?label=%20&message=Css&color=blue&labelColor=575757&style=flat&logo=css3"/> 
+<img src="https://img.shields.io/static/v1?label=%20&message=JSON&color=red&labelColor=575757&style=flat&logo=JSON"/> <img src="https://img.shields.io/static/v1?label=%20&message=WebStorage&color=green&labelColor=575757&style=flat&logo=WebStorage"/></p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## PREVIEW DO PROJETO
+<img src="https://raw.githubusercontent.com/SchubertAraujo/calendario/main/preview.png" alt="Imagem do projeto" />
 
-## Available Scripts
+## PARA RODAR O PROJETO
+- Caso queira rodar em seu computador é necessário
+  - Instalar o node.js (marcar para instalar o chocolatey)no <a href='https://nodejs.org/en'> https://nodejs.org/en </a>
+  - Apagar as pastas package-lock.json e node modules.
+  - No terminal do root do projeto npm install -g create-react-app para instalar
+  - Ainda no terminal root npm start
+> Sujeito a alterações e refatorações
+> 
+> <img src="https://img.shields.io/static/v1?label=Status&message=Finalizado&color=green&labelColor=575757&style=flat" />
 
-In the project directory, you can run:
+## FUNCIONALIDADES
+- Um calendário com os dias da semana sendo alterados de acordo com mês e ano
+- Dia atual mostrado com background azul
+- Selecção de dias para marcação de lembretes
+- Lembretes com horário e descrição mostrados nos dias que são selecionados
+- Exclusão de lembrentes
+- Só salvará se tiver hora no input de hora.
 
-### `npm start`
+## HOOK DO REACT UTILIZADOS
+- useEffect
+- useState
+- useContext
+- useCallback
+- useRef
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## DIFICULDADES ENCONTRADAS
+- Quando alterava o mês ou o ano o calendário não renderizava de acordo com os mesmo selecionados
+  - Problema gerado pelo uso do contexto no reducer alterava os valores do mesmo, mas não dava setState para alteração do state
+  - <img src="https://raw.githubusercontent.com/SchubertAraujo/calendario/main/imgs/reducer.png" />
+  - o setState foi colocado em um useEffect pra toda vez que o contexto fosse alterado como mostrado nas imgs abaixo
+  - <img src="https://raw.githubusercontent.com/SchubertAraujo/calendario/main/imgs/setState.jpg" />
+- Problemas com input, não salvava o valor do input no webstorage corretamente, sempre ia vazio.
+    - Isso ocorria pois ao clicar no botao de salvar, o valor do estado era setado e eu chamava o save do webStore. Por ser assincrono, coloquei save em um useEffect com dependência do estado "hour e salvou corretamente
+ 
+# OBSERVAÇÕES
+- Projeto feito para aprimorar conhecimentos em react, pode conter alguns bugs que não encontrei
+- Não a verificação e mensagem de aleta quaso o input não seja preenchido
