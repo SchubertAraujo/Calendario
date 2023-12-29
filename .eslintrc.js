@@ -28,7 +28,13 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-restricted-syntax': 'off',
     'guard-for-in': 'off',
-    'linebreak-style': 'off',
+    // 'linebreak-style': 'off',
     'react/function-component-definition': 'off',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
 };
