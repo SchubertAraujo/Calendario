@@ -30,6 +30,7 @@
 - useContext
 - useCallback
 - useRef
+- useReducer
 
 ## DIFICULDADES ENCONTRADAS
 - Quando alterava o mês ou o ano o calendário não renderizava de acordo com os mesmo selecionados
